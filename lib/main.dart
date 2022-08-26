@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:get/get.dart';
+import 'package:zoom_pinch_overlay/zoom_pinch_overlay.dart';
 
 void main() {
   runApp(MyApp());
@@ -57,19 +59,23 @@ class MyApp extends StatelessWidget {
                   children: [
                     ...listTarget
                         .map(
-                          (e) => CachedNetworkImage(
-                              fit: BoxFit.contain,
-                              placeholder: (c, s) => Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: SizedBox(
-                                    width: 24,
-                                    height: 24,
-                                    child: CircularProgressIndicator(strokeWidth: 0.5,)),
-                                ),
-                              ),
-                              imageUrl:
-                                  "https://raw.githubusercontent.com/malikkurosaki/assets-images/main/marketing/$e.png"),
+                          (e) => InstaImageViewer(
+                            child: CachedNetworkImage(
+                                fit: BoxFit.contain,
+                                placeholder: (c, s) => Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: SizedBox(
+                                            width: 24,
+                                            height: 24,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 0.5,
+                                            )),
+                                      ),
+                                    ),
+                                imageUrl:
+                                    "https://raw.githubusercontent.com/malikkurosaki/assets-images/main/marketing/$e.png"),
+                          ),
                         )
                         .toList()
                   ],
