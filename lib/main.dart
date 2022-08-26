@@ -36,7 +36,8 @@ class MyApp extends StatelessWidget {
               scrollOffset: 100,
               onEndOfPage: () async {
                 final anchor = List.from(listTarget).length + 1;
-                debugPrint("$anchor => ${listTarget.length}");
+                await 0.1.delay();
+
                 for (final tg in listGambar) {
                   if (listTarget.length.isLowerThan(anchor)) {
                     if (!listTarget.contains(tg)) {
@@ -47,8 +48,6 @@ class MyApp extends StatelessWidget {
                   }
                 }
                 debugPrint("$anchor => ${listTarget.length}");
-                await 0.1.delay();
-                debugPrint("load lagi");
               },
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
@@ -60,13 +59,15 @@ class MyApp extends StatelessWidget {
                         .map(
                           (e) => CachedNetworkImage(
                               fit: BoxFit.contain,
-                              placeholder: (c, s) => SizedBox(
-                                    width: Get.width,
-                                    height: 300,
-                                    child: Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                  ),
+                              placeholder: (c, s) => Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox(
+                                    width: 24,
+                                    height: 24,
+                                    child: CircularProgressIndicator(strokeWidth: 0.5,)),
+                                ),
+                              ),
                               imageUrl:
                                   "https://raw.githubusercontent.com/malikkurosaki/assets-images/main/marketing/$e.png"),
                         )
